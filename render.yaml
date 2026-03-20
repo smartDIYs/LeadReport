@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: LeadReport
+    runtime: node
+    repo: https://github.com/smartDIYs/LeadReport
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npx next start -p $PORT
+    envVars:
+      - key: HUBSPOT_ACCESS_TOKEN
+        sync: false
+      - key: NODE_ENV
+        value: production
