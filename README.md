@@ -7,6 +7,7 @@ HubSpot フォーム送信のトラフィックソース別リード集計アプ
 - 指定期間に対象フォームから送信された**新規コンタクト**をオリジナルトラフィックソースごとに集計
 - 各ソースの**商談移行率**と**顧客移行率**を表示
 - トラフィックソースをクリックするとドリルダウン（キャンペーン名・参照元ドメイン等）で展開
+- パスワード認証によるアクセス制限
 
 ### 対象フォーム
 
@@ -22,6 +23,7 @@ HubSpot フォーム送信のトラフィックソース別リード集計アプ
 - TypeScript
 - Tailwind CSS 4
 - HubSpot API
+- Vercel (ホスティング)
 
 ## セットアップ
 
@@ -33,7 +35,7 @@ npm install
 
 ### 2. 環境変数の設定
 
-`.env.local.example` をコピーして `.env.local` を作成し、HubSpot のアクセストークンを設定します。
+`.env.local.example` をコピーして `.env.local` を作成します。
 
 ```bash
 cp .env.local.example .env.local
@@ -41,6 +43,7 @@ cp .env.local.example .env.local
 
 ```
 HUBSPOT_ACCESS_TOKEN=pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+AUTH_PASSWORD=your_password_here
 ```
 
 #### HubSpot プライベートアプリの作成
@@ -60,12 +63,24 @@ npm run dev
 
 http://localhost:3000 でアプリにアクセスできます。
 
+## デプロイ
+
+Vercel にデプロイ済み。`main` ブランチへのプッシュで自動デプロイされます。
+
+環境変数は Vercel の **Project Settings > Environment Variables** で設定:
+
+| 変数名 | 説明 |
+|--------|------|
+| `HUBSPOT_ACCESS_TOKEN` | HubSpot プライベートアプリのアクセストークン |
+| `AUTH_PASSWORD` | アプリへのアクセスパスワード |
+
 ## 使い方
 
-1. 開始日と終了日を選択
-2. 「集計する」をクリック
-3. トラフィックソース別の集計テーブルが表示される
-4. 各行をクリックするとドリルダウンの内訳が展開される
+1. パスワードを入力してログイン
+2. 開始日と終了日を選択
+3. 「集計する」をクリック
+4. トラフィックソース別の集計テーブルが表示される
+5. 各行をクリックするとドリルダウンの内訳が展開される
 
 ## ライフサイクルステージの判定
 

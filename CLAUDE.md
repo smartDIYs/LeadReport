@@ -16,11 +16,24 @@ npm start      # 本番サーバー起動
 
 ## 環境変数
 
-`HUBSPOT_ACCESS_TOKEN` — HubSpotプライベートアプリのアクセストークン（`.env.local`に設定）。必要なスコープ: `crm.objects.contacts.read`, `forms`。
+- `HUBSPOT_ACCESS_TOKEN` — HubSpotプライベートアプリのアクセストークン。必要なスコープ: `crm.objects.contacts.read`, `forms`
+- `AUTH_PASSWORD` — アプリへのアクセスパスワード
+
+`.env.local` に設定。`.env.local.example` を参照。
+
+## デプロイ
+
+Vercel にデプロイ済み。`main` ブランチへのプッシュで自動デプロイ。環境変数は Vercel の Project Settings > Environment Variables で管理。
 
 ## アーキテクチャ
 
 Next.js 15 App Router + TypeScript + Tailwind CSS 4。
+
+### 認証
+
+- `src/middleware.ts` で全ページをパスワード保護（`/login` と `/api/auth` は除外）
+- `src/app/login/page.tsx` でログイン画面を表示
+- `src/app/api/auth/route.ts` でパスワード検証、認証cookieを発行（30日間有効）
 
 ### データフロー
 
